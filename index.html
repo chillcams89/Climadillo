@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  
+    <title>Climadillo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/ios-styles.css">
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#91C3E2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Climadillo">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Apple Touch Icons para diferentes tamaños -->
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <!-- Meta tags adicionales para mejor soporte iOS -->
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-cloud-sun"></i>
+                <h1>Climadillo</h1>
+            </div>
+            
+            <div class="header-actions">
+                <button id="installBtn" class="header-btn install-btn" style="display: flex;" title="Instalar aplicación">
+                    <i class="fas fa-download"></i>
+                    <span class="btn-text">Instalar</span>
+                </button>
+                
+                <button id="shareAppBtn" class="header-btn share-btn">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Current Weather -->
+    <section class="current-weather" id="currentWeather">
+        <div class="container">
+            <div class="weather-card main-card">
+                <div class="weather-header">
+                    <div class="date-time">
+                        <span id="currentDate">Miércoles, 6 de Agosto 2025</span>
+                        <span id="currentTime">14:30</span>
+                    </div>
+                </div>
+                
+                <div class="weather-main">
+                    <i id="Proveedor" class="fas fa-circle-info" style="color:#91C3E2; cursor: pointer;" onclick="openProveedorModal()"></i>
+                    <div class="location">
+                        <span id="currentLocation">Saladillo, Bs.As, Argentina</span>
+                    </div>
+                    
+                    <div class="temperature-section">
+                        <div class="temp-display">
+                            <span id="currentTemp"> </span>
+                            <span class="temp-unit">°C</span>
+                        </div>
+                        <!-- Reemplazar la sección temp-description -->
+                        <div class="temp-description">
+                            <i id="weatherIcon"></i>
+                            <span id="weatherDescription"> </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenedor de efectos climáticos -->
+                    <div id="weatherEffects" class="weather-effects"></div>
+                    
+                    <div class="weather-details">
+                         <div class="detail-item">
+                            <i class="fas fa-eye"></i>
+                            <span>Presión Atmosférica</span>
+                            <span id="visibility">Cargando...</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Humedad</span>
+                            <span id="humidity">Cargando...</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-wind"></i>
+                            <span>Viento</span>
+                            <span id="windSpeed">Cargando...</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                            <span>Precipitación</span>
+                            <span id="pressure">Cargando...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historical Weather Section -->
+    <section class="historical-weather">
+        <div class="container">
+            <div class="weather-card">
+                <div class="section-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Historial del Clima</h3>
+                </div>
+                
+                <div class="history-form">
+                    <div class="date-inputs">
+                        <div class="input-group">
+                            <label for="fechaDesde">Desde</label>
+                            <input type="date" id="fechaDesde" name="fechaDesde" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="fechaHasta">Hasta</label>
+                            <input type="date" id="fechaHasta" name="fechaHasta" required>
+                        </div>
+                    </div>
+                    
+                    <div class="data-selector">
+                        <select id="codigoClima" name="codigo" class="fa-select">
+                            <option value="14" class="fa-thermometer-half"> Temperatura</option>
+                            <option value="18" class="fa-tint"> Humedad</option>
+                            <option value="4" class="fa-wind"> Viento</option>
+                            <option value="20" class="fa-cloud-rain"> Precipitación</option>
+                            <option value="218" class="fa-tachometer-alt"> Presión</option>
+                        </select>
+                    </div>
+                    
+                    <button id="consultarHistorico" class="consult-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Consultar</span>
+                    </button>
+                </div>
+                
+                <div id="chartContainer" class="chart-container">
+                    <div id="graficoClima"></div>
+                    <div id="noDataMessage" class="no-data-message">
+                        <i class="fas fa-chart-area"></i>
+                        <p>Selecciona un rango de fechas para ver el histórico</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal de información del proveedor -->
+    <div id="proveedorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Información del Proyecto</h2>
+                <button class="modal-close" onclick="closeProveedorModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- NUEVO: Información del Grupo -->
+                <div class="info-section info-destacada">
+                    <h3><i class="fas fa-users"></i> Equipo de Desarrollo</h3>
+                    <p><strong>Proyecto desarrollado por:</strong></p>
+                    <div class="team-members">
+                        <span class="member-badge">Joaquín Cendes</span>
+                        <span class="member-badge">Ignacio Balbiani</span>
+                        <span class="member-badge">Camila Correale</span>
+                        <span class="member-badge">Daniel Freccero</span>
+                        <span class="member-badge">Valentino Olasagaste</span>
+                        <span class="member-badge">Antonieta Yancarelli</span>
+                    </div>
+                    
+                    <div class="project-info">
+                        <p><strong>Curso:</strong> 7mo 2da - Técnico en Programación</p>
+                        <p><strong>Grupo:</strong> Taller N° 3</p>
+                        <p><strong>Materia:</strong> Proyecto de Desarrollo de Software para Plataformas Móviles</p>
+                        <p><strong>Profesor:</strong> Fernando Zarragoicochea</p>
+                    </div>
+                </div>
+
+                <!-- NUEVO: Información del Colegio -->
+                <div class="info-section">
+                    <h3><i class="fas fa-school"></i> Institución Educativa</h3>
+                    <p><strong>Nombre:</strong> Escuela de Educación Secundaria Técnica N° 1 "General Savio"</p>
+                    <p><strong>Dirección:</strong> Joaquín V. González 3013, Saladillo, Provincia de Buenos Aires</p>
+                    
+                    <!-- Mapa -->
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.0234567890!2d-59.7826!3d-35.6378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bd3b0a0a0a0a0b%3A0x0a0a0a0a0a0a0a0a!2sJoaqu%C3%ADn%20V.%20Gonz%C3%A1lez%203013%2C%20Saladillo%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1234567890"
+                            width="100%" 
+                            height="200" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación del colegio">
+                        </iframe>
+                        <a href="https://maps.google.com/?q=Joaquín+V.+González+3013,+Saladillo,+Buenos+Aires" 
+                        target="_blank" 
+                        class="map-link">
+                            <i class="fas fa-map-marker-alt"></i> Ver en Google Maps
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Proveedor de Datos -->
+                <div class="info-section">
+                    <h3><i class="fas fa-database"></i> Proveedor de Datos</h3>
+                    <p><strong>Entidad:</strong> Sistema Nacional de Información Hídrica (SNIH)</p>
+                    <p><strong>Subsecretaría:</strong> Subsecretaría de Recursos Hídricos</p>
+                    <p><strong>Ministerio:</strong> Secretaría de Obras Públicas del Ministerio de Economía</p>
+                    <p><strong>Dirección:</strong> Av. Pte. Roque Sáez Peña 777, CABA, Argentina</p>
+                    <p><strong>Sitio Web:</strong> <a href="https://snih.hidricosargentina.gob.ar" target="_blank">snih.hidricosargentina.gob.ar</a></p>
+                </div>
+                
+                <!-- Proyecto Vinculado -->
+                <div class="info-section">
+                    <h3><i class="fas fa-project-diagram"></i> Proyecto Vinculado</h3>
+                    <p><strong>Proyecto:</strong> Red Nacional de Estaciones Meteorológicas Automáticas (RMET)</p>
+                    <p><strong>Contratista:</strong> EVARSA SA</p>
+                    <p><strong>Ubicación:</strong> EET N° 1 "Gral. Savio" - Saladillo</p>
+                </div>
+                
+                <!-- Uso de los Datos -->
+                <div class="info-section">
+                    <h3><i class="fas fa-graduation-cap"></i> Uso de los Datos</h3>
+                    <p>Datos utilizados con fines educativos para desarrollar una aplicación móvil del clima.</p>
+                </div>
+                
+                <!-- Compromiso Ético -->
+                <div class="info-section">
+                    <h3><i class="fas fa-handshake"></i> Compromiso Ético</h3>
+                    <p>Los estudiantes se comprometen a respetar el uso de los datos, citando la fuente y preservando el sentido original de la información.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Splash Screen de Carga -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-glow"></div>
+            <img src="images/icono.png" alt="Climadillo" class="splash-icon">
+
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/pwa-install.js"></script>
+    <script src="js/ios-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</body>
+</html>

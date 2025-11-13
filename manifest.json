@@ -1,0 +1,84 @@
+{
+  "name": "Climadillo - Clima de Saladillo",
+  "short_name": "Climadillo",
+  "description": "Aplicación meteorológica educativa de Saladillo, Buenos Aires. Consulta el clima actual y el historial meteorológico en tiempo real.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f1419",
+  "theme_color": "#91C3E2",
+  "lang": "es-AR",
+  "dir": "ltr",
+  "categories": ["weather", "education", "utilities"],
+  "icons": [
+    {
+      "src": "./images/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./images/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./images/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./images/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./images/screenshot-mobile.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista principal de Climadillo"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver Clima Actual",
+      "short_name": "Clima",
+      "description": "Ver el clima actual de Saladillo",
+      "url": "./#current",
+      "icons": [
+        {
+          "src": "./images/favicon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Historial",
+      "short_name": "Historial",
+      "description": "Consultar historial meteorológico",
+      "url": "./#history",
+      "icons": [
+        {
+          "src": "./images/favicon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}
